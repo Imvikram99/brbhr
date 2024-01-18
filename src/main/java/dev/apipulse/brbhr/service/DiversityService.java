@@ -16,7 +16,7 @@ public class DiversityService {
 
     public DiversityMetrics getDiversityMetrics() {
         // Logic to calculate and return diversity metrics
-        return diversityMetricsRepository.findLatestMetrics();
+        return null;
     }
 
     public void submitFeedback(DiversityFeedback feedback) {

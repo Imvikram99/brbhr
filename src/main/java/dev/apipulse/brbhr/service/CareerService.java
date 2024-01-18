@@ -21,7 +21,7 @@ public class CareerService {
     }
 
     public List<JobPosting> getInternalJobPostings() {
-        return jobPostingRepository.findInternalPostings();
+        return null;
     }
 
     public void applyForJob(String jobId, JobApplication application) {
