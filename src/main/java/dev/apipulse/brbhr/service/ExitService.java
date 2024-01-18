@@ -1,5 +1,10 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.ExitProcess;
+import dev.apipulse.brbhr.repository.ExitProcessRepository;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+
 @Service
 public class ExitService {
 

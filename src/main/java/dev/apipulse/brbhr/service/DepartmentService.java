@@ -1,5 +1,14 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.Department;
+import dev.apipulse.brbhr.model.Employee;
+import dev.apipulse.brbhr.repository.DepartmentRepository;
+import dev.apipulse.brbhr.repository.EmployeeRepository;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class DepartmentService {
 

@@ -1,5 +1,13 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.TravelRequest;
+import dev.apipulse.brbhr.service.TravelService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/travel")
 public class TravelController {

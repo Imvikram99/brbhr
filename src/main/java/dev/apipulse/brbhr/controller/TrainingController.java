@@ -1,5 +1,13 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.TrainingProgram;
+import dev.apipulse.brbhr.service.TrainingService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/training")
 public class TrainingController {

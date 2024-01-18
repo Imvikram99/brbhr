@@ -1,5 +1,11 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.WellnessActivity;
+import dev.apipulse.brbhr.repository.WellnessActivityRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class WellnessService {
 

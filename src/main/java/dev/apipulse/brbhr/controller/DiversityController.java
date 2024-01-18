@@ -1,5 +1,10 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.DiversityMetrics;
+import dev.apipulse.brbhr.service.DiversityService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/diversity")
 public class DiversityController {

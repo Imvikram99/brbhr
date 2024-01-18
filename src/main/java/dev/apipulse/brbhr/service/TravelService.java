@@ -1,5 +1,12 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.TravelRequest;
+import dev.apipulse.brbhr.repository.TravelRepository;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class TravelService {
 

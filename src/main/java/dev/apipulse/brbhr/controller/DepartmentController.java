@@ -1,5 +1,14 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.Department;
+import dev.apipulse.brbhr.model.Employee;
+import dev.apipulse.brbhr.service.DepartmentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/departments")
 public class DepartmentController {

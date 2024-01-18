@@ -1,5 +1,13 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.WellnessActivity;
+import dev.apipulse.brbhr.service.WellnessService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/wellness")
 public class WellnessController {

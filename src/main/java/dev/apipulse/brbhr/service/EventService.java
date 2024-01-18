@@ -1,5 +1,12 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.Event;
+import dev.apipulse.brbhr.repository.EventRepository;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class EventService {
 

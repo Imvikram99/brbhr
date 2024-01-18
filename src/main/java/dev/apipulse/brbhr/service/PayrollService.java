@@ -1,5 +1,9 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.Payroll;
+import dev.apipulse.brbhr.repository.PayrollRepository;
+import org.springframework.stereotype.Service;
+
 @Service
 public class PayrollService {
 

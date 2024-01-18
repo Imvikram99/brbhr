@@ -1,5 +1,12 @@
 package dev.apipulse.brbhr.service;
 
+import com.nimbusds.oauth2.sdk.TokenResponse;
+import com.nimbusds.openid.connect.sdk.LogoutRequest;
+import org.springframework.stereotype.Service;
+
+import java.security.Permission;
+import java.util.List;
+
 @Service
 public class AuthService {
 

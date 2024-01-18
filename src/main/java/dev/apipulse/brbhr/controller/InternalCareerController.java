@@ -1,5 +1,12 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.JobPosting;
+import dev.apipulse.brbhr.service.CareerService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/careers/internal")
 public class InternalCareerController {

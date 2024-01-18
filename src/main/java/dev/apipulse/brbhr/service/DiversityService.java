@@ -1,5 +1,9 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.DiversityMetrics;
+import dev.apipulse.brbhr.repository.DiversityMetricsRepository;
+import org.springframework.stereotype.Service;
+
 @Service
 public class DiversityService {
 

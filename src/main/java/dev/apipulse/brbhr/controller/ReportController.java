@@ -1,5 +1,11 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.Report;
+import dev.apipulse.brbhr.service.ReportService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/reports")
 public class ReportController {

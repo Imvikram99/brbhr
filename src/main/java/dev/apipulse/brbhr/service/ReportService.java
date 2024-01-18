@@ -1,5 +1,8 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.Report;
+import org.springframework.stereotype.Service;
+
 @Service
 public class ReportService {
 

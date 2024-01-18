@@ -1,5 +1,11 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.Notification;
+import dev.apipulse.brbhr.repository.NotificationRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class NotificationService {
 
