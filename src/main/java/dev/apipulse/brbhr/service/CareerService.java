@@ -1,6 +1,8 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.JobApplication;
 import dev.apipulse.brbhr.model.JobPosting;
+import dev.apipulse.brbhr.repository.JobApplicationRepository;
 import dev.apipulse.brbhr.repository.JobPostingRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ public class CareerService {
         return jobPostingRepository.findInternalPostings();
     }
 
-    public void applyForJob(Long jobId, JobApplication application) {
+    public void applyForJob(String jobId, JobApplication application) {
         // Logic to handle job application
         JobPosting jobPosting = jobPostingRepository.findById(jobId)
                 .orElseThrow(() -> new ResourceNotFoundException("Job Posting not found"));

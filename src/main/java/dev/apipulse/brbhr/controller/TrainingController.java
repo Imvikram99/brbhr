@@ -31,13 +31,13 @@ public class TrainingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TrainingProgram> updateTrainingProgram(@PathVariable Long id, @RequestBody TrainingProgram program) {
+    public ResponseEntity<TrainingProgram> updateTrainingProgram(@PathVariable String id, @RequestBody TrainingProgram program) {
         TrainingProgram updatedProgram = trainingService.updateTrainingProgram(id, program);
         return ResponseEntity.ok(updatedProgram);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTrainingProgram(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTrainingProgram(@PathVariable String id) {
         trainingService.deleteTrainingProgram(id);
         return ResponseEntity.noContent().build();
     }

@@ -19,7 +19,7 @@ public class TravelController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<List<TravelRequest>> getTravelByEmployee(@PathVariable Long employeeId) {
+    public ResponseEntity<List<TravelRequest>> getTravelByEmployee(@PathVariable String employeeId) {
         List<TravelRequest> travelRequests = travelService.getTravelByEmployee(employeeId);
         return ResponseEntity.ok(travelRequests);
     }
@@ -31,13 +31,13 @@ public class TravelController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TravelRequest> updateTravelRequest(@PathVariable Long id, @RequestBody TravelRequest travelRequest) {
+    public ResponseEntity<TravelRequest> updateTravelRequest(@PathVariable String id, @RequestBody TravelRequest travelRequest) {
         TravelRequest updatedRequest = travelService.updateTravelRequest(id, travelRequest);
         return ResponseEntity.ok(updatedRequest);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTravelRequest(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTravelRequest(@PathVariable String id) {
         travelService.deleteTravelRequest(id);
         return ResponseEntity.noContent().build();
     }

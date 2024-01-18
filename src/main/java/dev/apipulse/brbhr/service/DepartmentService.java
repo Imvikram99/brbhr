@@ -24,7 +24,7 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
-    public List<Employee> getEmployeesByDepartment(Long departmentId) {
+    public List<Employee> getEmployeesByDepartment(String departmentId) {
         return employeeRepository.findByDepartmentId(departmentId);
     }
 
@@ -32,7 +32,7 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    public Department updateDepartment(Long id, Department departmentDetails) {
+    public Department updateDepartment(String id, Department departmentDetails) {
         Department department = departmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
         // Update logic

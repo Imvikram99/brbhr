@@ -20,7 +20,7 @@ public class NotificationService {
         return notificationRepository.save(notification);
     }
 
-    public List<Notification> getNotificationsByEmployee(Long employeeId) {
+    public List<Notification> getNotificationsByEmployee(String employeeId) {
         // Retrieve notifications for an employee
         return notificationRepository.findByEmployeeId(employeeId);
     }

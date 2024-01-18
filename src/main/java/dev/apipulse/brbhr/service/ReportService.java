@@ -1,5 +1,7 @@
 package dev.apipulse.brbhr.service;
 
+import dev.apipulse.brbhr.model.AnalysisRequest;
+import dev.apipulse.brbhr.model.AnalyticsResult;
 import dev.apipulse.brbhr.model.Report;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +13,12 @@ public class ReportService {
     public Report generateReport(String type) {
         // Logic to generate a report based on type
         // return reportGenerationComponent.generate(type);
-        return report;
+        return null;
     }
 
     public AnalyticsResult analyzeData(AnalysisRequest request) {
         // Perform data analysis
         // AnalyticsResult result = analyticsComponent.analyze(request.getData());
-        return result;
+        return null;
     }
 }

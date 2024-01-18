@@ -7,6 +7,6 @@ import java.util.List;
 
 
 public interface EmployeeRepository extends MongoRepository<Employee, String> {
-    List<Employee> findByDepartmentId(Long departmentId);
+    List<Employee> findByDepartmentId(String departmentId);
     // Custom query methods can be defined here if needed
 }

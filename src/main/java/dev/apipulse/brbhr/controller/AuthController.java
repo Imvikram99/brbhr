@@ -2,6 +2,7 @@ package dev.apipulse.brbhr.controller;
 
 import com.nimbusds.oauth2.sdk.TokenResponse;
 import com.nimbusds.openid.connect.sdk.LogoutRequest;
+import dev.apipulse.brbhr.model.LoginRequest;
 import dev.apipulse.brbhr.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class AuthController {
     }
 
     @GetMapping("/permissions")
-    public ResponseEntity<List<Permission>> getPermissions(@RequestParam Long userId) {
+    public ResponseEntity<List<Permission>> getPermissions(@RequestParam String userId) {
         List<Permission> permissions = authService.getPermissions(userId);
         return ResponseEntity.ok(permissions);
     }

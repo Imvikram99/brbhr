@@ -1,6 +1,7 @@
 package dev.apipulse.brbhr.controller;
 
 import dev.apipulse.brbhr.model.WellnessActivity;
+import dev.apipulse.brbhr.model.WellnessProgram;
 import dev.apipulse.brbhr.service.WellnessService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class WellnessController {
     }
 
     @GetMapping("/activities/{employeeId}")
-    public ResponseEntity<List<WellnessActivity>> getActivitiesByEmployee(@PathVariable Long employeeId) {
+    public ResponseEntity<List<WellnessActivity>> getActivitiesByEmployee(@PathVariable String employeeId) {
         List<WellnessActivity> activities = wellnessService.getActivitiesByEmployee(employeeId);
         return ResponseEntity.ok(activities);
     }

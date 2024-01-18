@@ -18,8 +18,7 @@ public class ExitService {
         return exitProcessRepository.save(exitProcess);
     }
 
-    public ExitProcess getExitDetails(Long employeeId) {
-        return exitProcessRepository.findByEmployeeId(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Exit Process not found for employee"));
+    public ExitProcess getExitDetails(String employeeId) {
+        return exitProcessRepository.findByEmployeeId(employeeId);
     }
 }

@@ -17,7 +17,7 @@ public class PayrollController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<Payroll> getPayrollByEmployee(@PathVariable Long employeeId) {
+    public ResponseEntity<Payroll> getPayrollByEmployee(@PathVariable String employeeId) {
         Payroll payroll = payrollService.getPayrollByEmployee(employeeId);
         return ResponseEntity.ok(payroll);
     }
@@ -29,7 +29,7 @@ public class PayrollController {
     }
 
     @PutMapping("/{employeeId}")
-    public ResponseEntity<Payroll> updatePayroll(@PathVariable Long employeeId, @RequestBody Payroll payroll) {
+    public ResponseEntity<Payroll> updatePayroll(@PathVariable String employeeId, @RequestBody Payroll payroll) {
         Payroll updatedPayroll = payrollService.updatePayroll(employeeId, payroll);
         return ResponseEntity.ok(updatedPayroll);
     }

@@ -16,7 +16,7 @@ public class SalaryAdvanceService {
         this.salaryAdvanceRepository = salaryAdvanceRepository;
     }
 
-    public List<SalaryAdvance> getSalaryAdvancesByEmployee(Long employeeId) {
+    public List<SalaryAdvance> getSalaryAdvancesByEmployee(String employeeId) {
         return salaryAdvanceRepository.findByEmployeeId(employeeId);
     }
 
@@ -24,7 +24,7 @@ public class SalaryAdvanceService {
         return salaryAdvanceRepository.save(salaryAdvance);
     }
 
-    public SalaryAdvance updateSalaryAdvance(Long id, SalaryAdvance salaryAdvanceDetails) {
+    public SalaryAdvance updateSalaryAdvance(String id, SalaryAdvance salaryAdvanceDetails) {
         SalaryAdvance advance = salaryAdvanceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Salary Advance not found"));
         // Update logic

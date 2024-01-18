@@ -19,7 +19,7 @@ public class LeaveController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<List<Leave>> getLeavesByEmployee(@PathVariable Long employeeId) {
+    public ResponseEntity<List<Leave>> getLeavesByEmployee(@PathVariable String employeeId) {
         List<Leave> leaves = leaveService.getLeavesByEmployee(employeeId);
         return ResponseEntity.ok(leaves);
     }
@@ -31,13 +31,13 @@ public class LeaveController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Leave> updateLeave(@PathVariable Long id, @RequestBody Leave leave) {
+    public ResponseEntity<Leave> updateLeave(@PathVariable String id, @RequestBody Leave leave) {
         Leave updatedLeave = leaveService.updateLeave(id, leave);
         return ResponseEntity.ok(updatedLeave);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLeave(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteLeave(@PathVariable String id) {
         leaveService.deleteLeave(id);
         return ResponseEntity.noContent().build();
     }

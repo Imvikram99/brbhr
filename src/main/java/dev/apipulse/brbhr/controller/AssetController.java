@@ -25,7 +25,7 @@ public class AssetController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<List<Asset>> getAssetsByEmployee(@PathVariable Long employeeId) {
+    public ResponseEntity<List<Asset>> getAssetsByEmployee(@PathVariable String employeeId) {
         List<Asset> assets = assetService.getAssetsByEmployee(employeeId);
         return ResponseEntity.ok(assets);
     }
@@ -37,13 +37,13 @@ public class AssetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Asset> updateAsset(@PathVariable Long id, @RequestBody Asset asset) {
+    public ResponseEntity<Asset> updateAsset(@PathVariable String id, @RequestBody Asset asset) {
         Asset updatedAsset = assetService.updateAsset(id, asset);
         return ResponseEntity.ok(updatedAsset);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deallocateAsset(@PathVariable Long id) {
+    public ResponseEntity<Void> deallocateAsset(@PathVariable String id) {
         assetService.deallocateAsset(id);
         return ResponseEntity.noContent().build();
     }

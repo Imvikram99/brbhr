@@ -24,14 +24,14 @@ public class TrainingService {
         return trainingRepository.save(program);
     }
 
-    public TrainingProgram updateTrainingProgram(Long id, TrainingProgram programDetails) {
+    public TrainingProgram updateTrainingProgram(String id, TrainingProgram programDetails) {
         TrainingProgram program = trainingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Training Program not found"));
         // Update logic
         return trainingRepository.save(program);
     }
 
-    public void deleteTrainingProgram(Long id) {
+    public void deleteTrainingProgram(String id) {
         TrainingProgram program = trainingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Training Program not found"));
         trainingRepository.delete(program);

@@ -26,7 +26,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/{id}/employees")
-    public ResponseEntity<List<Employee>> getEmployeesByDepartment(@PathVariable Long id) {
+    public ResponseEntity<List<Employee>> getEmployeesByDepartment(@PathVariable String id) {
         List<Employee> employees = departmentService.getEmployeesByDepartment(id);
         return ResponseEntity.ok(employees);
     }
@@ -38,7 +38,7 @@ public class DepartmentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody Department department) {
+    public ResponseEntity<Department> updateDepartment(@PathVariable String id, @RequestBody Department department) {
         Department updatedDepartment = departmentService.updateDepartment(id, department);
         return ResponseEntity.ok(updatedDepartment);
     }

@@ -5,6 +5,8 @@ import dev.apipulse.brbhr.repository.PerformanceReviewRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PerformanceService {
 
@@ -14,7 +16,7 @@ public class PerformanceService {
         this.reviewRepository = reviewRepository;
     }
 
-    public List<PerformanceReview> getPerformanceReviews(Long employeeId) {
+    public List<PerformanceReview> getPerformanceReviews(String employeeId) {
         return reviewRepository.findByEmployeeId(employeeId);
     }
 
@@ -23,7 +25,7 @@ public class PerformanceService {
         return reviewRepository.save(review);
     }
 
-    public PerformanceReview updatePerformanceReview(Long id, PerformanceReview reviewDetails) {
+    public PerformanceReview updatePerformanceReview(String id, PerformanceReview reviewDetails) {
         PerformanceReview review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Performance Review not found"));
         // Update logic

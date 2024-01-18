@@ -20,7 +20,7 @@ public class AssetService {
         return assetRepository.findAll();
     }
 
-    public List<Asset> getAssetsByEmployee(Long employeeId) {
+    public List<Asset> getAssetsByEmployee(String employeeId) {
         return assetRepository.findByEmployeeId(employeeId);
     }
 
@@ -28,14 +28,14 @@ public class AssetService {
         return assetRepository.save(asset);
     }
 
-    public Asset updateAsset(Long id, Asset assetDetails) {
+    public Asset updateAsset(String id, Asset assetDetails) {
         Asset asset = assetRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
         // Update logic
         return assetRepository.save(asset);
     }
 
-    public void deallocateAsset(Long id) {
+    public void deallocateAsset(String id) {
         Asset asset = assetRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
         assetRepository.delete(asset);

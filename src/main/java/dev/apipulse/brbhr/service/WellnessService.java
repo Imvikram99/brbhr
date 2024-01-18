@@ -1,7 +1,9 @@
 package dev.apipulse.brbhr.service;
 
 import dev.apipulse.brbhr.model.WellnessActivity;
+import dev.apipulse.brbhr.model.WellnessProgram;
 import dev.apipulse.brbhr.repository.WellnessActivityRepository;
+import dev.apipulse.brbhr.repository.WellnessProgramRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class WellnessService {
         this.wellnessProgramRepository = wellnessProgramRepository;
     }
 
-    public List<WellnessActivity> getActivitiesByEmployee(Long employeeId) {
+    public List<WellnessActivity> getActivitiesByEmployee(String employeeId) {
         return wellnessActivityRepository.findByEmployeeId(employeeId);
     }
 

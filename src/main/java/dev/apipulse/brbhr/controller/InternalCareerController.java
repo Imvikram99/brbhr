@@ -1,5 +1,6 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.JobApplication;
 import dev.apipulse.brbhr.model.JobPosting;
 import dev.apipulse.brbhr.service.CareerService;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class InternalCareerController {
     }
 
     @PostMapping("/apply/{jobId}")
-    public ResponseEntity<Void> applyForJob(@PathVariable Long jobId, @RequestBody JobApplication application) {
+    public ResponseEntity<Void> applyForJob(@PathVariable String jobId, @RequestBody JobApplication application) {
         careerService.applyForJob(jobId, application);
         return ResponseEntity.noContent().build();
     }

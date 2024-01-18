@@ -13,7 +13,7 @@ public class PayrollService {
         this.payrollRepository = payrollRepository;
     }
 
-    public Payroll getPayrollByEmployee(Long employeeId) {
+    public Payroll getPayrollByEmployee(String employeeId) {
         // Logic to retrieve payroll details
         return payrollRepository.findByEmployeeId(employeeId);
     }
@@ -23,7 +23,7 @@ public class PayrollService {
         return payrollRepository.save(payroll);
     }
 
-    public Payroll updatePayroll(Long employeeId, Payroll payrollDetails) {
+    public Payroll updatePayroll(String employeeId, Payroll payrollDetails) {
         // Logic to update payroll information
         Payroll payroll = payrollRepository.findByEmployeeId(employeeId);
         // Update logic

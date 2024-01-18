@@ -20,11 +20,11 @@ public class GrievanceService {
         return grievanceRepository.save(grievance);
     }
 
-    public List<Grievance> getGrievancesByEmployee(Long employeeId) {
+    public List<Grievance> getGrievancesByEmployee(String employeeId) {
         return grievanceRepository.findByEmployeeId(employeeId);
     }
 
-    public Grievance updateGrievance(Long id, Grievance grievanceDetails) {
+    public Grievance updateGrievance(String id, Grievance grievanceDetails) {
         Grievance grievance = grievanceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Grievance not found"));
         // Update logic

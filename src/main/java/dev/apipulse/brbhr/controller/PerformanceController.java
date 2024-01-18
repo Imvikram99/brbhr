@@ -19,7 +19,7 @@ public class PerformanceController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<List<PerformanceReview>> getPerformanceReviews(@PathVariable Long employeeId) {
+    public ResponseEntity<List<PerformanceReview>> getPerformanceReviews(@PathVariable String employeeId) {
         List<PerformanceReview> reviews = performanceService.getPerformanceReviews(employeeId);
         return ResponseEntity.ok(reviews);
     }
@@ -31,7 +31,7 @@ public class PerformanceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PerformanceReview> updatePerformanceReview(@PathVariable Long id, @RequestBody PerformanceReview review) {
+    public ResponseEntity<PerformanceReview> updatePerformanceReview(@PathVariable String id, @RequestBody PerformanceReview review) {
         PerformanceReview updatedReview = performanceService.updatePerformanceReview(id, review);
         return ResponseEntity.ok(updatedReview);
     }

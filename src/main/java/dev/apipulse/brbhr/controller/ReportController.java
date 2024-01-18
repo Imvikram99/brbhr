@@ -1,5 +1,7 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.AnalysisRequest;
+import dev.apipulse.brbhr.model.AnalyticsResult;
 import dev.apipulse.brbhr.model.Report;
 import dev.apipulse.brbhr.service.ReportService;
 import org.springframework.http.HttpStatus;

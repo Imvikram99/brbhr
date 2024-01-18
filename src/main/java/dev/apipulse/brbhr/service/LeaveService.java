@@ -16,7 +16,7 @@ public class LeaveService {
         this.leaveRepository = leaveRepository;
     }
 
-    public List<Leave> getLeavesByEmployee(Long employeeId) {
+    public List<Leave> getLeavesByEmployee(String employeeId) {
         return leaveRepository.findByEmployeeId(employeeId);
     }
 
@@ -25,14 +25,14 @@ public class LeaveService {
         return leaveRepository.save(leave);
     }
 
-    public Leave updateLeave(Long id, Leave leaveDetails) {
+    public Leave updateLeave(String id, Leave leaveDetails) {
         Leave leave = leaveRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Leave not found"));
         // Update logic
         return leaveRepository.save(leave);
     }
 
-    public void deleteLeave(Long id) {
+    public void deleteLeave(String id) {
         Leave leave = leaveRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Leave not found"));
         leaveRepository.delete(leave);

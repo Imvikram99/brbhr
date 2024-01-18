@@ -16,7 +16,7 @@ public class TravelService {
         this.travelRepository = travelRepository;
     }
 
-    public List<TravelRequest> getTravelByEmployee(Long employeeId) {
+    public List<TravelRequest> getTravelByEmployee(String employeeId) {
         return travelRepository.findByEmployeeId(employeeId);
     }
 
@@ -24,14 +24,14 @@ public class TravelService {
         return travelRepository.save(travelRequest);
     }
 
-    public TravelRequest updateTravelRequest(Long id, TravelRequest travelRequestDetails) {
+    public TravelRequest updateTravelRequest(String id, TravelRequest travelRequestDetails) {
         TravelRequest travelRequest = travelRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Travel Request not found"));
         // Update logic
         return travelRepository.save(travelRequest);
     }
 
-    public void deleteTravelRequest(Long id) {
+    public void deleteTravelRequest(String id) {
         TravelRequest travelRequest = travelRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Travel Request not found"));
         travelRepository.delete(travelRequest);

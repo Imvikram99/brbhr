@@ -1,5 +1,6 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.DiversityFeedback;
 import dev.apipulse.brbhr.model.DiversityMetrics;
 import dev.apipulse.brbhr.service.DiversityService;
 import org.springframework.http.ResponseEntity;

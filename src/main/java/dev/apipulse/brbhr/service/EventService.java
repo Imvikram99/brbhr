@@ -24,14 +24,14 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public Event updateEvent(Long id, Event eventDetails) {
+    public Event updateEvent(String id, Event eventDetails) {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
         // Update logic
         return eventRepository.save(event);
     }
 
-    public void deleteEvent(Long id) {
+    public void deleteEvent(String id) {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
         eventRepository.delete(event);

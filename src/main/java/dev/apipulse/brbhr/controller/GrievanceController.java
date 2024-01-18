@@ -25,13 +25,13 @@ public class GrievanceController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<List<Grievance>> getGrievancesByEmployee(@PathVariable Long employeeId) {
+    public ResponseEntity<List<Grievance>> getGrievancesByEmployee(@PathVariable String employeeId) {
         List<Grievance> grievances = grievanceService.getGrievancesByEmployee(employeeId);
         return ResponseEntity.ok(grievances);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Grievance> updateGrievance(@PathVariable Long id, @RequestBody Grievance grievance) {
+    public ResponseEntity<Grievance> updateGrievance(@PathVariable String id, @RequestBody Grievance grievance) {
         Grievance updatedGrievance = grievanceService.updateGrievance(id, grievance);
         return ResponseEntity.ok(updatedGrievance);
     }

@@ -19,7 +19,7 @@ public class SalaryAdvanceController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<List<SalaryAdvance>> getSalaryAdvancesByEmployee(@PathVariable Long employeeId) {
+    public ResponseEntity<List<SalaryAdvance>> getSalaryAdvancesByEmployee(@PathVariable String employeeId) {
         List<SalaryAdvance> advances = salaryAdvanceService.getSalaryAdvancesByEmployee(employeeId);
         return ResponseEntity.ok(advances);
     }
@@ -31,7 +31,7 @@ public class SalaryAdvanceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SalaryAdvance> updateSalaryAdvance(@PathVariable Long id, @RequestBody SalaryAdvance salaryAdvance) {
+    public ResponseEntity<SalaryAdvance> updateSalaryAdvance(@PathVariable String id, @RequestBody SalaryAdvance salaryAdvance) {
         SalaryAdvance updatedAdvance = salaryAdvanceService.updateSalaryAdvance(id, salaryAdvance);
         return ResponseEntity.ok(updatedAdvance);
     }
