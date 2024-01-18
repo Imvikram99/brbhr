@@ -17,7 +17,5 @@ public class Asset {
     private String assetType;
     private String assetName;
     private String serialNumber;
-    // Other relevant fields
 
-    // Getters and setters
 }

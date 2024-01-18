@@ -19,7 +19,7 @@ public class TravelRequest {
     private Date startDate;
     private Date endDate;
     private Double estimatedCost;
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

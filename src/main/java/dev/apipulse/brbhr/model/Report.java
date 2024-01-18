@@ -15,7 +15,7 @@ public class Report {
     private String id;
     private String type;
     private String content; // This could be JSON, XML, etc., depending on your reporting format
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

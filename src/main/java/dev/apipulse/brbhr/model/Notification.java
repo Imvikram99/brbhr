@@ -17,7 +17,7 @@ public class Notification {
     private String employeeId;
     private String message;
     private Date timestamp;
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

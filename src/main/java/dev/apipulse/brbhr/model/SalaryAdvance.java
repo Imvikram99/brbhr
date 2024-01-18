@@ -18,7 +18,7 @@ public class SalaryAdvance {
     private Double amount;
     private Date requestDate;
     private String status; // e.g., "Pending", "Approved", "Rejected"
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

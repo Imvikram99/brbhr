@@ -18,7 +18,7 @@ public class JobPosting {
     private String description;
     private Date postingDate;
     private Date closingDate;
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

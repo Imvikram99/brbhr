@@ -16,7 +16,7 @@ public class User {
     private String username;
     private String password; // Hashed password
     private String role;
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

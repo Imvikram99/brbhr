@@ -18,7 +18,7 @@ public class WellnessActivity {
     private String activityType;
     private Date activityDate;
     private Integer duration; // Duration in minutes
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

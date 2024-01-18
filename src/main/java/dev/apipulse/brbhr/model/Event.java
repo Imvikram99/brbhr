@@ -17,7 +17,7 @@ public class Event {
     private String name;
     private Date eventDate;
     private String location;
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

@@ -18,7 +18,7 @@ public class Grievance {
     private String description;
     private Date filedDate;
     private String status; // e.g., "Open", "Resolved", "Closed"
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

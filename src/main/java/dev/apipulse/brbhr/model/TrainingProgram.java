@@ -15,7 +15,7 @@ public class TrainingProgram {
     private String id;
     private String name;
     private String description;
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }

@@ -15,7 +15,5 @@ public class Department {
     private String id;
     private String name;
     private String managerId;
-    // Other relevant fields
 
-    // Getters and setters
 }

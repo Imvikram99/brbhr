@@ -19,5 +19,5 @@ public class ExitProcess {
     private String reason; // Reason for leaving
     // Other fields related to the offboarding process
 
-    // Getters and setters
+    
 }

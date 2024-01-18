@@ -15,7 +15,7 @@ public class DiversityMetrics {
     private String id;
     private Integer totalEmployees;
     private Integer diversityCount; // Define as needed (e.g., gender, ethnicity)
-    // Other relevant fields
+    
 
-    // Getters and setters
+    
 }
