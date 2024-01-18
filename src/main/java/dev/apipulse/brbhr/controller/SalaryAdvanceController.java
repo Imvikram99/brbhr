@@ -1,0 +1,30 @@
+package dev.apipulse.brbhr.controller;
+
+@RestController
+@RequestMapping("/api/salary/advance")
+public class SalaryAdvanceController {
+
+    private final SalaryAdvanceService salaryAdvanceService;
+
+    public SalaryAdvanceController(SalaryAdvanceService salaryAdvanceService) {
+        this.salaryAdvanceService = salaryAdvanceService;
+    }
+
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<List<SalaryAdvance>> getSalaryAdvancesByEmployee(@PathVariable Long employeeId) {
+        List<SalaryAdvance> advances = salaryAdvanceService.getSalaryAdvancesByEmployee(employeeId);
+        return ResponseEntity.ok(advances);
+    }
+
+    @PostMapping
+    public ResponseEntity<SalaryAdvance> requestSalaryAdvance(@RequestBody SalaryAdvance salaryAdvance) {
+        SalaryAdvance advance = salaryAdvanceService.requestSalaryAdvance(salaryAdvance);
+        return new ResponseEntity<>(advance, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SalaryAdvance> updateSalaryAdvance(@PathVariable Long id, @RequestBody SalaryAdvance salaryAdvance) {
+        SalaryAdvance updatedAdvance = salaryAdvanceService.updateSalaryAdvance(id, salaryAdvance);
+        return ResponseEntity.ok(updatedAdvance);
+    }
+}
