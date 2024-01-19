@@ -1,7 +1,6 @@
 package dev.apipulse.brbhr.controller;
 
-import com.nimbusds.oauth2.sdk.TokenResponse;
-import com.nimbusds.openid.connect.sdk.LogoutRequest;
+
 import dev.apipulse.brbhr.model.LoginRequest;
 import dev.apipulse.brbhr.service.AuthService;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +19,17 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest) {
-        TokenResponse token = authService.authenticate(loginRequest);
-        return ResponseEntity.ok(token);
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestBody LogoutRequest logoutRequest) {
-        authService.logout(logoutRequest);
-        return ResponseEntity.noContent().build();
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest) {
+//        TokenResponse token = authService.authenticate(loginRequest);
+//        return ResponseEntity.ok(token);
+//    }
+//
+//    @PostMapping("/logout")
+//    public ResponseEntity<Void> logout(@RequestBody LogoutRequest logoutRequest) {
+//        authService.logout(logoutRequest);
+//        return ResponseEntity.noContent().build();
+//    }
 
     @GetMapping("/permissions")
     public ResponseEntity<List<Permission>> getPermissions(@RequestParam String userId) {
