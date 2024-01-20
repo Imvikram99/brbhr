@@ -1,9 +1,6 @@
 package dev.apipulse.brbhr.controller;
 
-import dev.apipulse.brbhr.model.JobApplication;
-import dev.apipulse.brbhr.model.JobPosting;
-import dev.apipulse.brbhr.model.Interview;
-import dev.apipulse.brbhr.model.Offer;
+import dev.apipulse.brbhr.model.*;
 import dev.apipulse.brbhr.service.CandidateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +27,36 @@ public class CandidateController {
     public ResponseEntity<List<JobPosting>> getAllJobPostings() {
         List<JobPosting> postings = candidateService.getAllJobPostings();
         return ResponseEntity.ok(postings);
+    }
+
+    @PostMapping("/job-postings/{jobPostingId}/add-stage")
+    public ResponseEntity<JobPosting> addStageToJobPosting(@PathVariable String jobPostingId, @RequestBody Stage stage) {
+        JobPosting updatedJobPosting = candidateService.addStageToJobPosting(jobPostingId, stage);
+        return ResponseEntity.ok(updatedJobPosting);
+    }
+
+    @GetMapping("/job-postings/{jobPostingId}/stages")
+    public ResponseEntity<List<Stage>> getStagesForJobPosting(@PathVariable String jobPostingId) {
+        List<Stage> stages = candidateService.getStagesForJobPosting(jobPostingId);
+        return ResponseEntity.ok(stages);
+    }
+
+    @DeleteMapping("/job-postings/{jobPostingId}/stages/{stageId}")
+    public ResponseEntity<?> deleteStageFromJobPosting(@PathVariable String jobPostingId, @PathVariable String stageId) {
+        candidateService.deleteStageFromJobPosting(jobPostingId, stageId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/applications/{applicationId}/current-stage")
+    public ResponseEntity<Stage> getCurrentStageOfApplication(@PathVariable String applicationId) {
+        Stage currentStage = candidateService.getCurrentStageOfApplication(applicationId);
+        return ResponseEntity.ok(currentStage);
+    }
+
+    @PutMapping("/applications/{applicationId}/update-stage")
+    public ResponseEntity<JobApplication> updateCandidateStage(@PathVariable String applicationId, @RequestBody Stage newStage) {
+        JobApplication updatedApplication = candidateService.updateCandidateStage(applicationId, newStage);
+        return ResponseEntity.ok(updatedApplication);
     }
 
     @PostMapping("/apply")

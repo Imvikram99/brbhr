@@ -1,9 +1,6 @@
 package dev.apipulse.brbhr.service;
 
-import dev.apipulse.brbhr.model.JobApplication;
-import dev.apipulse.brbhr.model.JobPosting;
-import dev.apipulse.brbhr.model.Interview;
-import dev.apipulse.brbhr.model.Offer;
+import dev.apipulse.brbhr.model.*;
 import dev.apipulse.brbhr.repository.JobApplicationRepository;
 import dev.apipulse.brbhr.repository.JobPostingRepository;
 import dev.apipulse.brbhr.repository.InterviewRepository;
@@ -28,11 +25,11 @@ public class CandidateService {
     private OfferRepository offerRepository;
 
     public List<JobPosting> getAllJobPostings() {
-        return null;
+        return jobPostingRepository.findAll();
     }
 
     public JobPosting postJob(JobPosting jobPosting) {
-        return null;
+        return jobPostingRepository.save(jobPosting);
     }
 
     public JobApplication submitApplication(JobApplication application) {
@@ -53,6 +50,40 @@ public class CandidateService {
 
     public Offer acceptOffer(String offerId) {
         return null;
+    }
+
+
+    public Stage getCurrentStageOfApplication(String applicationId) {
+        JobApplication application = jobApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+        return application.getCurrentStage();
+    }
+
+    public JobApplication updateCandidateStage(String applicationId, Stage newStage) {
+        JobApplication application = jobApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+        application.setCurrentStage(newStage);
+        return jobApplicationRepository.save(application);
+    }
+
+    public void deleteStageFromJobPosting(String jobPostingId, String stageId) {
+        JobPosting jobPosting = jobPostingRepository.findById(jobPostingId)
+                .orElseThrow(() -> new RuntimeException("Job posting not found"));
+        jobPosting.getStages().removeIf(stage -> stage.getId().equals(stageId));
+        jobPostingRepository.save(jobPosting);
+    }
+
+    public List<Stage> getStagesForJobPosting(String jobPostingId) {
+        JobPosting jobPosting = jobPostingRepository.findById(jobPostingId)
+                .orElseThrow(() -> new RuntimeException("Job posting not found"));
+        return jobPosting.getStages();
+    }
+
+    public JobPosting addStageToJobPosting(String jobPostingId, Stage stage) {
+        JobPosting jobPosting = jobPostingRepository.findById(jobPostingId)
+                .orElseThrow(() -> new RuntimeException("Job posting not found"));
+        jobPosting.getStages().add(stage);
+        return jobPostingRepository.save(jobPosting);
     }
 
     // Implement methods for posting jobs, applying to jobs, scheduling interviews, extending offers, etc.

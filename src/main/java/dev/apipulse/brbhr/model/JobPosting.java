@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
+import java.util.List;
 
 @Document
 @Data
@@ -18,7 +19,13 @@ public class JobPosting {
     private String description;
     private Date postingDate;
     private Date closingDate;
-    
+    private String jobPosition;
+    private String recruitingManager;
+    private Integer vacancy;
+    private List<String> requiredSkills;
+    private List<Stage> stages;
+    private Integer experienceRequired;
+
 
     
 }
