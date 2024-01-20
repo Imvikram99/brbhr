@@ -53,7 +53,7 @@ public class CandidateService {
     }
 
     public Offer acceptOffer(String offerId) {
-        return null;//
+        return null;
     }
 
 
