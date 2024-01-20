@@ -3,9 +3,11 @@ package dev.apipulse.brbhr.repository;
 import dev.apipulse.brbhr.model.JobApplication;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 
 public interface JobApplicationRepository extends MongoRepository<JobApplication, String> {
     // Define additional custom query methods if necessary
     // Example:
-    // List<JobApplication> findByApplicantName(String applicantName);
+     List<JobApplication> findByApplicantEmail(String applicantEmail);
 }

@@ -65,9 +65,14 @@ public class CandidateController {
         return ResponseEntity.ok(submittedApplication);
     }
 
-    @GetMapping("/applications/{candidateId}")
-    public ResponseEntity<List<JobApplication>> getCandidateApplications(@PathVariable String candidateId) {
-        List<JobApplication> applications = candidateService.getCandidateApplications(candidateId);
+    @GetMapping("/applications/{emailId}")
+    public ResponseEntity<List<JobApplication>> getCandidateApplications(@PathVariable String applicantEmail) {
+        List<JobApplication> applications = candidateService.getCandidateApplicationsByEmailId(applicantEmail);
+        return ResponseEntity.ok(applications);
+    }
+    @GetMapping("/applications")
+    public ResponseEntity<List<JobApplication>> getCandidateApplicationsAll() {
+        List<JobApplication> applications = candidateService.getCandidateApplications();
         return ResponseEntity.ok(applications);
     }
 

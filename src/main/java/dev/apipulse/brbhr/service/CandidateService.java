@@ -33,11 +33,15 @@ public class CandidateService {
     }
 
     public JobApplication submitApplication(JobApplication application) {
-        return null;
+        return jobApplicationRepository.save(application);
     }
 
-    public List<JobApplication> getCandidateApplications(String candidateId) {
-        return null;
+    public List<JobApplication> getCandidateApplicationsByEmailId(String applicantEmail) {
+        return jobApplicationRepository.findByApplicantEmail(applicantEmail);
+    }
+
+    public List<JobApplication> getCandidateApplications() {
+        return jobApplicationRepository.findAll();
     }
 
     public Interview scheduleInterview(Interview interview) {
