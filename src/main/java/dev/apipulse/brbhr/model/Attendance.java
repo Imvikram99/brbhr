@@ -21,7 +21,7 @@ public class Attendance {
     private LocalDate checkInDate;
     private String checkOutTime;
     private LocalDate checkOutDate;
-    private LocalDate date; // Could also be LocalDate
+    private LocalDate date;
     private String shift;
     private String workType; // e.g., WFH, Office
     private String overTime;

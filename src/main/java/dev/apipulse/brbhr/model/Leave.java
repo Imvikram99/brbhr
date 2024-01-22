@@ -18,6 +18,11 @@ public class Leave {
     private Date startDate;
     private Date endDate;
     private String type;
+    private String status;
+    private String reason;
+    private Integer requestedDays;
+    private String approverEmpId;
+    private String assignedToEmpId;
     
 
     
