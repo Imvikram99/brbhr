@@ -9,11 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
-public class CandidateService {
+public class RecruitmentService {
 
     @Autowired
     private JobPostingRepository jobPostingRepository;
@@ -26,6 +27,10 @@ public class CandidateService {
 
     public List<JobPosting> getAllJobPostings() {
         return jobPostingRepository.findAll();
+    }
+
+    public List<JobPosting> getAllJobOpenPostings() {
+        return jobPostingRepository.findByIsOpenTrue();
     }
 
     public JobPosting postJob(JobPosting jobPosting) {
@@ -57,39 +62,54 @@ public class CandidateService {
     }
 
 
-    public Stage getCurrentStageOfApplication(String applicationId) {
+    public RecruitmentStage getCurrentStageOfApplication(String applicationId) {
         JobApplication application = jobApplicationRepository.findById(applicationId)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
-        return application.getCurrentStage();
+        return application.getCurrentRecruitmentStage();
     }
 
-    public JobApplication updateCandidateStage(String applicationId, Stage newStage) {
+    public JobApplication updateCandidateStage(String applicationId, RecruitmentStage newRecruitmentStage) {
         JobApplication application = jobApplicationRepository.findById(applicationId)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
-        application.setCurrentStage(newStage);
+        application.setCurrentRecruitmentStage(newRecruitmentStage);
         return jobApplicationRepository.save(application);
     }
 
     public void deleteStageFromJobPosting(String jobPostingId, String stageId) {
         JobPosting jobPosting = jobPostingRepository.findById(jobPostingId)
                 .orElseThrow(() -> new RuntimeException("Job posting not found"));
-        jobPosting.getStages().removeIf(stage -> stage.getId().equals(stageId));
+        jobPosting.getRecruitmentStages().removeIf(recruitmentStage -> recruitmentStage.getId().equals(stageId));
         jobPostingRepository.save(jobPosting);
     }
 
-    public List<Stage> getStagesForJobPosting(String jobPostingId) {
+    public List<RecruitmentStage> getStagesForJobPosting(String jobPostingId) {
         JobPosting jobPosting = jobPostingRepository.findById(jobPostingId)
                 .orElseThrow(() -> new RuntimeException("Job posting not found"));
-        return jobPosting.getStages();
+        return jobPosting.getRecruitmentStages();
     }
 
-    public JobPosting addStageToJobPosting(String jobPostingId, Stage stage) {
+    public JobPosting addStageToJobPosting(String jobPostingId, RecruitmentStage recruitmentStage) {
         JobPosting jobPosting = jobPostingRepository.findById(jobPostingId)
                 .orElseThrow(() -> new RuntimeException("Job posting not found"));
-        jobPosting.getStages().add(stage);
+
+        List<RecruitmentStage> stages = jobPosting.getRecruitmentStages();
+        if (stages == null) {
+            stages = new ArrayList<>();
+            jobPosting.setRecruitmentStages(stages);
+        }
+        stages.add(recruitmentStage);
+
         return jobPostingRepository.save(jobPosting);
     }
 
-    // Implement methods for posting jobs, applying to jobs, scheduling interviews, extending offers, etc.
+
+    public List<JobApplication> getHiredCandidates(String jobId){
+        return jobApplicationRepository.findByAppliedToJobIdAndIsHiredTrue(jobId);
+    }
+
+    public List<JobApplication> getHiredCandidatesForJobIds(List<String> jobIds) {
+        // Call the repository method to find hired candidates for the list of job IDs
+        return jobApplicationRepository.findByAppliedToJobIdInAndIsHiredTrue(jobIds);
+    }
 
 }

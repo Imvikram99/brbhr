@@ -10,4 +10,7 @@ public interface JobApplicationRepository extends MongoRepository<JobApplication
     // Define additional custom query methods if necessary
     // Example:
      List<JobApplication> findByApplicantEmail(String applicantEmail);
+    List<JobApplication> findByAppliedToJobIdAndIsHiredTrue(String appliedToJobId);
+
+    List<JobApplication> findByAppliedToJobIdInAndIsHiredTrue(List<String> jobIds);
 }

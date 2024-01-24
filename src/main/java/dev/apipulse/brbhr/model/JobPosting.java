@@ -23,8 +23,9 @@ public class JobPosting {
     private String recruitingManager;
     private Integer vacancy;
     private List<String> requiredSkills;
-    private List<Stage> stages;
+    private List<RecruitmentStage> recruitmentStages;
     private Integer experienceRequired;
+    private Boolean isOpen;
 
 
     
