@@ -94,6 +94,4 @@ public class RecruitmentController {
         return ResponseEntity.ok(acceptedOffer);
     }
 
-    // Additional endpoints for updating/deleting job postings, interviews, offers, etc.
-
 }

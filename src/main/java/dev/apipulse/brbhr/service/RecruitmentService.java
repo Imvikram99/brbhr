@@ -72,6 +72,9 @@ public class RecruitmentService {
         JobApplication application = jobApplicationRepository.findById(applicationId)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
         application.setCurrentRecruitmentStage(newRecruitmentStage);
+        if(newRecruitmentStage.getRecruitmentStageType()==RecruitmentStageType.HIRED){
+            application.setIsHired(true);
+        }
         return jobApplicationRepository.save(application);
     }
 
