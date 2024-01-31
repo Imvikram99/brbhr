@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -73,7 +74,7 @@ public class RecruitmentService {
                 .orElseThrow(() -> new RuntimeException("Application not found"));
         application.setCurrentRecruitmentStage(newRecruitmentStage);
         if(newRecruitmentStage.getRecruitmentStageType()==RecruitmentStageType.HIRED){
-            application.setIsHired(true);
+            application.setIsHired(Boolean.TRUE);
         }
         return jobApplicationRepository.save(application);
     }
@@ -105,14 +106,25 @@ public class RecruitmentService {
         return jobPostingRepository.save(jobPosting);
     }
 
-
-    public List<JobApplication> getHiredCandidates(String jobId){
-        return jobApplicationRepository.findByAppliedToJobIdAndIsHiredTrue(jobId);
-    }
-
     public List<JobApplication> getHiredCandidatesForJobIds(List<String> jobIds) {
         // Call the repository method to find hired candidates for the list of job IDs
         return jobApplicationRepository.findByAppliedToJobIdInAndIsHiredTrue(jobIds);
     }
 
+    public void closeJobPosting(String jobPostingId) {
+        Optional<JobPosting> jobPosting =jobPostingRepository.findById(jobPostingId);
+        if(jobPosting.isPresent()) {
+            jobPosting.get().setIsOpen(Boolean.FALSE);
+            jobPostingRepository.save(jobPosting.get());
+        }
+
+    }
+
+    public void openJobPosting(String jobPostingId) {
+        Optional<JobPosting> jobPosting =jobPostingRepository.findById(jobPostingId);
+        if(jobPosting.isPresent()) {
+            jobPosting.get().setIsOpen(Boolean.TRUE);
+            jobPostingRepository.save(jobPosting.get());
+        }
+    }
 }

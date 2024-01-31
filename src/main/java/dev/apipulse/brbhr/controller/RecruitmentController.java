@@ -35,6 +35,17 @@ public class RecruitmentController {
         return ResponseEntity.ok(updatedJobPosting);
     }
 
+    @PostMapping("/job-postings/close/{jobPostingId}")
+    public ResponseEntity<Boolean> closeJobPosting(@PathVariable String jobPostingId) {
+        recruitmentService.closeJobPosting(jobPostingId);
+        return ResponseEntity.ok(Boolean.TRUE);
+    }
+    @PostMapping("/job-postings/open/{jobPostingId}")
+    public ResponseEntity<Boolean> openJobPosting(@PathVariable String jobPostingId) {
+        recruitmentService.openJobPosting(jobPostingId);
+        return ResponseEntity.ok(Boolean.TRUE);
+    }
+
     @GetMapping("/job-postings/{jobPostingId}/stages")
     public ResponseEntity<List<RecruitmentStage>> getStagesForJobPosting(@PathVariable String jobPostingId) {
         List<RecruitmentStage> recruitmentStages = recruitmentService.getStagesForJobPosting(jobPostingId);

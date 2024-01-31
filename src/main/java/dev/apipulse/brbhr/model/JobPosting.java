@@ -28,8 +28,6 @@ public class JobPosting {
     private List<String> requiredSkills;
     private List<RecruitmentStage> recruitmentStages;
     private Integer experienceRequired;
-    private Boolean isOpen;
+    private Boolean isOpen = Boolean.TRUE;
 
-
-    
 }

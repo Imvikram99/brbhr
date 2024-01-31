@@ -25,8 +25,12 @@ public class OnBoardingProcess {
     String jobPostingId;
 
     public void insertStage(int index, OnboardingStage stage) {
-        if (index < 1 || index > onboardingStages.size()) {
+        if (index < 1) {
             throw new IllegalArgumentException("Invalid index for onboarding stage insertion");
+        }
+        if(index > onboardingStages.size()){
+            onboardingStages.add(stage);
+            return;
         }
         onboardingStages.add(index, stage);
     }
