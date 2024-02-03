@@ -117,4 +117,17 @@ public class LeaveService {
     public List<Holidays> getHolidays() {
         return holidaysRepository.findAll();
     }
+
+    public LeaveDetails applyLeaves(String employeeId, LeaveRequest leaveRequest) {
+        LeaveDetails leaveDetails = leaveDetailsRepository.findByEmpIdAndType(employeeId, leaveRequest.getType());
+        Integer leavesAppliedForDays = leaveRequest.getNoOfDays();
+        if (leaveDetails != null && leaveDetails.getAvailableLeaves() >= leavesAppliedForDays) {
+            // Deduct the requested number of days from the leave balance.
+            leaveDetails.setLeavesTaken(leaveDetails.getLeavesTaken() + leavesAppliedForDays);
+            leaveDetails.setAvailableLeaves(leaveDetails.getAvailableLeaves() - leavesAppliedForDays);
+            // Save the updated leave details back to the repository.
+            leaveDetailsRepository.save(leaveDetails);
+        }
+        return leaveDetails;
+    }
 }

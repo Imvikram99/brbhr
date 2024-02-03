@@ -1,4 +1,4 @@
-package dev.apipulse.brbhr.model;
+package dev.apipulse.brbhr.sequence;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -6,23 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.Map;
 
 @Document
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Candidate {
+public class EmpIdSequence {
 
     @Id
-    private String id;
-    JobApplication jobApplication;
-    @Indexed(unique = true)
-    Integer empId;
-    @Indexed(unique = true)
-    String jobApplicationId;
+    private String id; // This will be 'empIdSequence' for your use case
+
+    private Integer sequenceValue;
+
 }

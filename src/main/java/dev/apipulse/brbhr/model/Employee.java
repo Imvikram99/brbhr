@@ -15,11 +15,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Employee {
-    private String name;
-    private String position;
-    private String departmentId;
+     String name;
+     String position;
+     String departmentId;
+    @Indexed(unique = true)
+     String empId;
     @Id
-    private String emailId;
+    private String emailId;//office mail id
 
     
 }

@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface LeaveDetailsRepository extends MongoRepository<LeaveDetails, String> {
     LeaveDetails findByEmpId(String employeeId);
+    LeaveDetails findByEmpIdAndType(String employeeId, String type);
 }

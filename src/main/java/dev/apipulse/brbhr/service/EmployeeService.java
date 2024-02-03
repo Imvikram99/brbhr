@@ -2,6 +2,7 @@ package dev.apipulse.brbhr.service;
 
 import dev.apipulse.brbhr.model.Employee;
 import dev.apipulse.brbhr.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 

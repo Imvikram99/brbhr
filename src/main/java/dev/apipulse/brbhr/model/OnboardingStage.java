@@ -23,5 +23,6 @@ public class OnboardingStage {
     private String description;
     private String defaultManager;
     private Map<String,String> candidateIdVsManager;
+    OnboardingStageType type;
 
 }

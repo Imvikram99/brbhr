@@ -5,11 +5,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import dev.apipulse.brbhr.model.*;
 import dev.apipulse.brbhr.repository.CandidateRepository;
 import dev.apipulse.brbhr.repository.OnboardingRepository;
+import dev.apipulse.brbhr.sequence.SequenceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -19,6 +21,11 @@ public class OnboardingService {
 
     @Autowired
     private CandidateRepository candidateRepository;
+
+    @Autowired EmployeeService employeeService;
+
+    @Autowired
+    SequenceService sequenceService;
 
     public void createOnboardingStage(OnboardingStage stage,String jobId,Integer index) {
         // Validate and save the onboarding stage
@@ -50,6 +57,11 @@ public class OnboardingService {
             if (fromStageCandidates != null && fromStageCandidates.containsKey(candidateId)) {
                 fromStageCandidates.remove(candidateId);
                 toStageCandidates.put(candidateId, managerId);
+                if(toStage.getType()==OnboardingStageType.COMPLETE){
+                    Employee employee = new Employee();
+                    employee.setEmpId(employee.getEmpId());
+                    employeeService.createEmployee(employee);
+                }
             } else {
                 // Handle case where candidate is not found in the 'from' stage
             }
@@ -69,20 +81,23 @@ public class OnboardingService {
             onBoardingProcess.setJobPostingId(appliedToJobId);
             OnboardingStage initialStage = new OnboardingStage();
             initialStage.setName("preArrival");
-            onBoardingProcess.setOnboardingStages(Collections.singletonList(initialStage));
+            OnboardingStage finalStage = new OnboardingStage();
+            finalStage.setName("onboarded");
+            onBoardingProcess.setOnboardingStages(Arrays.asList(initialStage,finalStage));
         }
         Map<String,String> candidateVsManager = new HashMap<>();
         for (JobApplication jobApplication : jobApplications) {
             Candidate candidate = new Candidate();
             candidate.setId(UUID.randomUUID().toString());
-            candidate.setJobApplication(jobApplication); // Set job application related details
+            candidate.setEmpId(sequenceService.getNextSequence("empIdSequence"));
+            candidate.setJobApplication(jobApplication);
+            candidate.setJobApplicationId(jobApplication.getId());// Set job application related details
             candidates.add(candidate);
             candidateVsManager.put(candidate.getId(),"");
         }
         OnboardingStage preArrivalStage = onBoardingProcess.getOnboardingStages().get(0);
         preArrivalStage.setCandidateIdVsManager(candidateVsManager);
         onboardingRepository.save(onBoardingProcess);
-
         // Save all candidates
         candidateRepository.saveAll(candidates);
 
@@ -98,6 +113,11 @@ public class OnboardingService {
             return stages;
         }
         return null;
+    }
+
+    public List<Candidate> getAllOnboardingInitiatedCandidates(String jobId){
+        List<Candidate> onboarding = candidateRepository.findByJobApplication_AppliedToJobIdAndJobApplication_CurrentRecruitmentStage_RecruitmentStageType(jobId,RecruitmentStageType.HIRED.toString());
+        return onboarding;
     }
 
 }

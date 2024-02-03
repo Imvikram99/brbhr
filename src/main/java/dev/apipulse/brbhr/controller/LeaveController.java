@@ -22,6 +22,10 @@ public class LeaveController {
     public ResponseEntity<LeaveDetails> getMyLeaves(@PathVariable String employeeId) {
         return ResponseEntity.ok(leaveService.getMyLeaves(employeeId));
     }
+    @PostMapping("/myleaves/apply/{employeeId}")
+    public ResponseEntity<LeaveDetails> applyLeaves(@PathVariable String employeeId, @RequestBody LeaveRequest leaveRequest) {
+        return ResponseEntity.ok(leaveService.applyLeaves(employeeId,leaveRequest));
+    }
 
     @GetMapping("/myleaves-requests/{employeeId}")
     public ResponseEntity<List<Leave>> getMyLeaveRequests(@PathVariable String employeeId) {

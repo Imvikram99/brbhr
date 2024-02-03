@@ -18,4 +18,5 @@ public class LeaveDetails {
     private Integer availableLeaves;
     private Integer carryForwardLeaves;
     private Integer totalLeaves;
+    private Integer leavesTaken;
 }

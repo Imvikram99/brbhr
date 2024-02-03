@@ -48,6 +48,10 @@ public class OnboardingController {
     public ResponseEntity<List<OnboardingStage>> getAllOnboardingStages(@PathVariable String jobId) {
         return ResponseEntity.ok(onboardingService.getCandidatesByStagesForJobPosting(jobId));
     }
+    @GetMapping("/candidates/{jobId}")
+    public ResponseEntity<List<Candidate>> getAllOnboardingCandidates(@PathVariable String jobId) {
+        return ResponseEntity.ok(onboardingService.getAllOnboardingInitiatedCandidates(jobId));
+    }
 
     @PostMapping("/stage/{jobId}")
     public ResponseEntity<Boolean> createOnboardingStage(@RequestBody OnboardingStage stage,@PathVariable String jobId,@RequestParam Integer index) {
