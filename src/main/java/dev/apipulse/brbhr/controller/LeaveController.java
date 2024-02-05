@@ -47,6 +47,14 @@ public class LeaveController {
     public ResponseEntity<List<Leave>> getAssignedLeaves(@PathVariable String assignedToEmpId) {
         return ResponseEntity.ok(leaveService.getAssignedLeaves(assignedToEmpId));
     }
+    @PutMapping("/leaves/{leaveId}/status")
+    public ResponseEntity<Leave> updateLeaveStatus(@PathVariable String leaveId, @RequestBody LeaveStatusUpdateRequest request) {
+            // Assuming LeaveStatusUpdateRequest contains fields like `status` and possibly `reason`
+            leaveService.updateLeaveStatus(leaveId, request.getStatus(), request.getReason());
+            return ResponseEntity.ok().build();
+    }
+
+
 
     @GetMapping("/leave-requests")
     public ResponseEntity<List<Leave>> getAllLeaveRequests() {

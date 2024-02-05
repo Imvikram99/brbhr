@@ -5,6 +5,7 @@ import dev.apipulse.brbhr.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LeaveService {
@@ -68,11 +69,8 @@ public class LeaveService {
     public CompanyLeave updateCompanyLeave(String id, CompanyLeave companyLeave) {
         return companyLeaveRepository.findById(id)
                 .map(existingLeave -> {
-                    // Update fields of the existing entity here
-                    // For example:
-                    // existingLeave.setBasedOnWeek(companyLeave.getBasedOnWeek());
-                    // existingLeave.setBasedOnWeekDay(companyLeave.getBasedOnWeekDay());
-                    // Add other fields as necessary
+                     existingLeave.setBasedOnWeek(companyLeave.getBasedOnWeek());
+                     existingLeave.setBasedOnWeekDay(companyLeave.getBasedOnWeekDay());
                     return companyLeaveRepository.save(existingLeave);
                 })
                 .orElseThrow(() -> new RuntimeException("CompanyLeave not found with id: " + id));
@@ -129,5 +127,19 @@ public class LeaveService {
             leaveDetailsRepository.save(leaveDetails);
         }
         return leaveDetails;
+    }
+
+    public void updateLeaveStatus(String leaveId, String status, String reason) {
+        Optional<Leave> leaveOptional = leaveRepository.findById(leaveId);
+
+        if (!leaveOptional.isPresent()) {
+            // Handle the case where the leave does not exist
+            throw new IllegalArgumentException("Leave with ID " + leaveId + " does not exist.");
+        }
+
+        Leave leave = leaveOptional.get();
+        leave.setStatus(status);
+        leave.setApproverReason(reason);
+        leaveRepository.save(leave);
     }
 }

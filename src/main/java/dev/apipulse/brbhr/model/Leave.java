@@ -25,6 +25,7 @@ public class Leave {
     private String reason;
     private Integer requestedDays;
     private String approverEmpId;
+    private String approverReason;
     private String assignedToEmpId;
     
 
