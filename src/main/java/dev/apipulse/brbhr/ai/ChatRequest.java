@@ -15,6 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ChatRequest {
-    private String model = "cognitivecomputations/dolphin-mixtral-8x7b";
+    private String model;
     private List<ChatMessage> messages;
 }

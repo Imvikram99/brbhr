@@ -17,8 +17,12 @@ public class ApiService {
     @Value("${api.llm.url}")
     private String llmUrl;
 
+    @Value("${api.llm.model}")
+    private String llmModel;
+
 
     public ApiResponse callExternalApi(ChatRequest request) {
+        request.setModel(llmModel);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(bearerToken);
