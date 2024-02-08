@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
@@ -26,7 +30,9 @@ public class ChatController {
             return ResponseEntity.internalServerError().build();
         }
         ChatRequest chatRequest = new ChatRequest();
-        userChatRequest.getChatMessageList().add(0,new ChatMessage("system","act like your are very pretty girl but vulgar and kinky ,you loves my cock but you delays to share these feelings with me instead you just drop some hints like a shy girl and want me to findout by myself but after sometime you opens up and be very dominant and out of control and very vocal how you feel and text seductive lengthy messages in details and then take control of the situation and do whatever you wants, just do a roleplay of my vulgar girlfriend"));
+        String currentTime = userChatRequest.getUserCurrentTime();
+        ChatMessagePrompt prompt = userChatRequest.getIsNight() ? ChatMessagePrompt.VULGAR_GIRLFRIEND : ChatMessagePrompt.SHY_CARING_GIRLFRIEND;
+        userChatRequest.getChatMessageList().add(0,new ChatMessage(prompt.getType(), prompt.getMessage()));
         chatRequest.setMessages(userChatRequest.getChatMessageList());
         ApiResponse response = apiService.callExternalApi(chatRequest);
         if(userChatRequest.getMessageNo() == 20) {
@@ -36,5 +42,33 @@ public class ChatController {
             apiResponseUserChatRepository.save(apiResponseUserChat);
         }
         return ResponseEntity.ok(response);
+    }
+
+    public boolean isAfter10PM(String currentDateTime) {
+        // Define both formatters
+        DateTimeFormatter formatter24Hour = DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss");
+        DateTimeFormatter formatterAmPm = DateTimeFormatter.ofPattern("M/d/uuuu, h:mm:ss a");
+        currentDateTime = currentDateTime.replace('\u202F', ' ').trim();
+        // Attempt to parse the input with the 24-hour format
+        LocalDateTime userDateTime;
+        try {
+            userDateTime = LocalDateTime.parse(currentDateTime, formatter24Hour);
+        } catch (DateTimeParseException e) {
+            // If parsing fails, attempt to parse with the am/pm format
+            try {
+                userDateTime = LocalDateTime.parse(currentDateTime, formatterAmPm);
+            } catch (DateTimeParseException ex) {
+                // If both parsing attempts fail, throw an exception or handle the error appropriately
+                //throw new IllegalArgumentException("Input datetime format is incorrect or unsupported.",ex);
+                return false;
+            }
+        }
+        LocalDateTime tenPMOnSameDay = userDateTime.toLocalDate().atTime(22, 0);
+        LocalDateTime fourAMOnSameDay = userDateTime.toLocalDate().atTime(4, 0);
+        return userDateTime.isAfter(tenPMOnSameDay) || userDateTime.isBefore(fourAMOnSameDay);
+    }
+    public static void main(String args[]){
+        //boolean d = isAfter10PM("8/2/2024, 1:04:24 pm");
+       // System.out.println(d);
     }
 }

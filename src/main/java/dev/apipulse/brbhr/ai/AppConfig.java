@@ -12,7 +12,7 @@ public class AppConfig {
         RestTemplate restTemplate = new RestTemplate();
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
         requestFactory.setConnectTimeout(1000);
-        requestFactory.setReadTimeout(6000);
+        requestFactory.setReadTimeout(12000);
         restTemplate.setRequestFactory(requestFactory);
         return restTemplate;
     }

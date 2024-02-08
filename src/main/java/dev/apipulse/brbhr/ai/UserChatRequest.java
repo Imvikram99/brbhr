@@ -22,4 +22,6 @@ public class UserChatRequest {
     Integer messageNo;
     Double latitude;
     Double longitude;
+    String userCurrentTime;
+    Boolean isNight;
 }
