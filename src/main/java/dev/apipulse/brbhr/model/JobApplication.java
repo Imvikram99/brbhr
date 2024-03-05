@@ -33,5 +33,6 @@ public class JobApplication {
     private String appliedToJobId;
     @JsonIgnore
     private Boolean isHired;
+    private String jobSeekerId;
 }
 

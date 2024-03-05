@@ -1,5 +1,6 @@
 package dev.apipulse.brbhr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,9 @@ public class JobPosting {
     private List<String> requiredSkills;
     private List<RecruitmentStage> recruitmentStages;
     private Integer experienceRequired;
+
+    @JsonIgnore
+    String recruiterUserName;
     private Boolean isOpen = Boolean.TRUE;
 
 }

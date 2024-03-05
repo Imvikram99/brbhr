@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
 import lombok.extern.log4j.Log4j2;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,5 +47,20 @@ public class UserRepository {
         } else {
             return Optional.empty();
         }
+    }
+    public void saveUser(User user) {
+        log.info("Saving user details for username: " + user.getUsername());
+        MongoClient client = MongoClients.create(mongoUri);
+        MongoDatabase database = client.getDatabase("brbhr");
+        MongoCollection<Document> collection = database.getCollection("userProfile");
+
+        Document doc = new Document("id", user.getId())
+                .append("username", user.getUsername())
+                .append("password", user.getPassword())
+                .append("roles", user.getRoles().stream().map(Enum::name).collect(Collectors.toList()));
+
+        // This assumes usernames are unique and you want to replace an existing user with the same username
+        // or insert a new one if the username does not exist.
+        collection.replaceOne(Filters.eq("username", user.getUsername()), doc, new ReplaceOptions().upsert(true));
     }
 }

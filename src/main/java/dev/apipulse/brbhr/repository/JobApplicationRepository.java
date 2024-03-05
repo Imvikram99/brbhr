@@ -13,4 +13,6 @@ public interface JobApplicationRepository extends MongoRepository<JobApplication
     List<JobApplication> findByAppliedToJobIdAndIsHiredTrue(String appliedToJobId);
 
     List<JobApplication> findByAppliedToJobIdInAndIsHiredTrue(List<String> jobIds);
+
+    List<JobApplication> findByJobSeekerId(String jobSeekerId);
 }

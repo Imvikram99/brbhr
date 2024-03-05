@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface JobPostingRepository extends MongoRepository<JobPosting, String> {
     List<JobPosting> findByIsOpenTrue();
+    List<JobPosting> findByRecruiterUserName();
 }

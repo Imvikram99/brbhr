@@ -26,8 +26,8 @@ public class RecruitmentService {
     @Autowired
     private OfferRepository offerRepository;
 
-    public List<JobPosting> getAllJobPostings() {
-        return jobPostingRepository.findAll();
+    public List<JobPosting> getAllJobPostingsByRecruiterName(String userName) {
+        return jobPostingRepository.findByRecruiterUserName();
     }
 
     public List<JobPosting> getAllJobOpenPostings() {

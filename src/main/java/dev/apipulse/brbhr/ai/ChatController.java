@@ -31,8 +31,9 @@ public class ChatController {
         }
         ChatRequest chatRequest = new ChatRequest();
         String currentTime = userChatRequest.getUserCurrentTime();
-        ChatMessagePrompt prompt = userChatRequest.getIsNight() ? ChatMessagePrompt.VULGAR_GIRLFRIEND : ChatMessagePrompt.SHY_CARING_GIRLFRIEND;
-        userChatRequest.getChatMessageList().add(0,new ChatMessage(prompt.getType(), prompt.getMessage()));
+        ChatMessagePrompt prompt = userChatRequest.getIsNight() ? ChatMessagePrompt.VULGAR_GIRLFRIEND : ChatMessagePrompt.MELONI;
+        userChatRequest.getChatMessageList().add(0,new ChatMessage(ChatMessagePrompt.MELONI.getType(), ChatMessagePrompt.MELONI.getMessage()));
+        userChatRequest.getChatMessageList().add(1,new ChatMessage(prompt.getType(), prompt.getMessage()));
         chatRequest.setMessages(userChatRequest.getChatMessageList());
         ApiResponse response = apiService.callExternalApi(chatRequest);
         if(userChatRequest.getMessageNo() == 20) {
