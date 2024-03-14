@@ -101,6 +101,8 @@ public class AuthController {
             }
             newUser.setRoles(roles);
             userRepository.saveUser(newUser);
+            String token = jwtTokenProvider.createToken(newUser.getUsername(), newUser.getRoles().stream().map(Role::name).collect(Collectors.toList()));
+            response.put("token", token);
             response.put("success", true);
             response.put("message", "User registered successfully!");
             log.info("User {} successfully registered.", registrationRequest.getUsername());
