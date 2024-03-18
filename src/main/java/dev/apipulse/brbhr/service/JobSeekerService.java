@@ -65,8 +65,8 @@ public class JobSeekerService {
         return null;
     }
 
-    public JobSeeker getJobSeekerProfile(String jobSeekerId) {
-        return null;
+    public JobSeeker getJobSeekerProfile(String userName) {
+        return jobSeekerProfileRepository.findByUserName(userName).orElseThrow();
     }
 
     public List<JobSeeker> getAllJobSeekers() {

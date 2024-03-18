@@ -2,6 +2,7 @@ package dev.apipulse.brbhr.controller;
 
 import dev.apipulse.brbhr.model.*;
 import dev.apipulse.brbhr.security.User;
+import dev.apipulse.brbhr.service.JobSeekerService;
 import dev.apipulse.brbhr.service.RecruitmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class RecruitmentController {
 
     @Autowired
     private RecruitmentService recruitmentService;
+    @Autowired
+    private JobSeekerService jobSeekerService;
 
     @PostMapping("/post-job")
     public ResponseEntity<JobPosting> postJob(@AuthenticationPrincipal User userDetails, @RequestBody JobPosting jobPosting) {
@@ -71,12 +74,6 @@ public class RecruitmentController {
     public ResponseEntity<JobApplication> updateCandidateStage(@AuthenticationPrincipal User userDetails,@PathVariable String applicationId, @RequestBody RecruitmentStage newRecruitmentStage) {
         JobApplication updatedApplication = recruitmentService.updateCandidateStage(applicationId, newRecruitmentStage);
         return ResponseEntity.ok(updatedApplication);
-    }
-
-    @PostMapping("/apply")
-    public ResponseEntity<JobApplication> applyForJob(@AuthenticationPrincipal User userDetails,@RequestBody JobApplication application) {
-        JobApplication submittedApplication = recruitmentService.submitApplication(application);
-        return ResponseEntity.ok(submittedApplication);
     }
 
     @GetMapping("/applications/{emailId}")

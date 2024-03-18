@@ -1,5 +1,6 @@
 package dev.apipulse.brbhr.referal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,9 +18,12 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReferralCode {
     String code;
+    @JsonIgnore
     String userId; // User who owns this referral code
+    @JsonIgnore
     Set<String> usedByUserIds = new HashSet<>(); // Tracks user IDs that have used this referral code
     boolean active = true; // Whether the referral code is still active
+    @JsonIgnore
     int maxUses; // Maximum number of users allowed to use this referral code
     DiscountType discountType; // Type of discount (PERCENTAGE_OFF or FLAT_OFF)
     double discountValue; // The value of the discount, interpretation depends on DiscountType
@@ -45,7 +49,9 @@ public class ReferralCode {
 
     // Enum for discount types
     public enum DiscountType {
-        PERCENTAGE_OFF,
-        FLAT_OFF
+        PERCENTAGE_FIX_OFF,
+        PERCENTAGE_DYNAMIC_OFF,
+        FLAT_FIX_OFF,
+        FLAT_DYNAMIC_OFF,
     }
 }

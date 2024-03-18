@@ -1,10 +1,7 @@
 package dev.apipulse.brbhr.service;
 
 import dev.apipulse.brbhr.model.*;
-import dev.apipulse.brbhr.repository.JobApplicationRepository;
-import dev.apipulse.brbhr.repository.JobPostingRepository;
-import dev.apipulse.brbhr.repository.InterviewRepository;
-import dev.apipulse.brbhr.repository.OfferRepository;
+import dev.apipulse.brbhr.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +18,16 @@ public class RecruitmentService {
     private JobPostingRepository jobPostingRepository;
     @Autowired
     private JobApplicationRepository jobApplicationRepository;
+
+    @Autowired
+    JobApplicantsRepository jobApplicantsRepository;
     @Autowired
     private InterviewRepository interviewRepository;
     @Autowired
     private OfferRepository offerRepository;
 
     public List<JobPosting> getAllJobPostingsByRecruiterName(String userName) {
-        return jobPostingRepository.findByRecruiterUserName();
+        return jobPostingRepository.findByRecruiterUserName(userName);
     }
 
     public List<JobPosting> getAllJobOpenPostings() {
@@ -40,6 +40,9 @@ public class RecruitmentService {
 
     public JobApplication submitApplication(JobApplication application) {
         return jobApplicationRepository.save(application);
+    }
+    public JobApplicants apply(JobApplicants application) {
+        return jobApplicantsRepository.save(application);
     }
 
     public List<JobApplication> getCandidateApplicationsByEmailId(String applicantEmail) {

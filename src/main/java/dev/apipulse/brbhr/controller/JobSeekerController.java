@@ -1,8 +1,12 @@
 package dev.apipulse.brbhr.controller;
 
+import dev.apipulse.brbhr.model.JobApplicants;
+import dev.apipulse.brbhr.model.JobApplication;
+import dev.apipulse.brbhr.model.JobPosting;
 import dev.apipulse.brbhr.model.JobSeeker;
 import dev.apipulse.brbhr.security.User;
 import dev.apipulse.brbhr.service.JobSeekerService;
+import dev.apipulse.brbhr.service.RecruitmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +24,9 @@ public class JobSeekerController {
 
     @Autowired
     private JobSeekerService jobSeekerService;
+
+    @Autowired
+    RecruitmentService recruitmentService;
 
     @PostMapping("/register")
     public ResponseEntity<JobSeeker> registerJobSeeker(@AuthenticationPrincipal User userDetails,@RequestBody JobSeeker jobSeeker) {
@@ -45,5 +52,21 @@ public class JobSeekerController {
     public ResponseEntity<JobSeeker> getJobSeekerProfile(@AuthenticationPrincipal User userDetails) {
         JobSeeker jobSeeker = jobSeekerService.getJobSeekerProfile(userDetails.getUsername());
         return ResponseEntity.ok(jobSeeker);
+    }
+
+    @PostMapping("/apply/{jobId}")
+    public ResponseEntity<JobApplicants> applyForJob(@AuthenticationPrincipal User userDetails, @PathVariable String jobId) {
+        JobSeeker jobSeeker = jobSeekerService.getJobSeekerProfile(userDetails.getUsername());
+        JobApplicants jobApplicants = new JobApplicants();
+        jobApplicants.setJobSeeker(jobSeeker);
+        jobApplicants.setJobId(jobId);
+        JobApplicants submittedApplication = recruitmentService.apply(jobApplicants);
+        return ResponseEntity.ok(submittedApplication);
+    }
+
+    @GetMapping("/all-jobs")
+    public ResponseEntity<List<JobPosting>> getAllHiredCandidates() {
+        List<JobPosting> openJobPostings = recruitmentService.getAllJobOpenPostings();
+        return ResponseEntity.ok(openJobPostings);
     }
 }
