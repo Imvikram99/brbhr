@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -18,6 +19,7 @@ public class RecruitmentService {
     private JobPostingRepository jobPostingRepository;
     @Autowired
     private JobApplicationRepository jobApplicationRepository;
+    @Autowired JobSeekerService jobSeekerService;
 
     @Autowired
     JobApplicantsRepository jobApplicantsRepository;
@@ -44,6 +46,7 @@ public class RecruitmentService {
     public JobApplicants apply(JobApplicants application) {
         return jobApplicantsRepository.save(application);
     }
+
 
     public List<JobApplication> getCandidateApplicationsByEmailId(String applicantEmail) {
         return jobApplicationRepository.findByApplicantEmail(applicantEmail);
@@ -129,5 +132,25 @@ public class RecruitmentService {
             jobPosting.get().setIsOpen(Boolean.TRUE);
             jobPostingRepository.save(jobPosting.get());
         }
+    }
+
+    public List<JobSeeker> getAllApplicationsByJobId(String jobPostingId) {
+        List<JobApplicants> jobApplicants = jobApplicantsRepository.findByJobId(jobPostingId);
+        List<JobSeeker> jobSeekers = jobApplicants.stream()
+                .map(applicant -> jobSeekerService.getJobSeekerById(applicant.getJobSeekerId()))
+                .filter(Optional::isPresent) // Filter to only include present Optionals
+                .map(Optional::get) // Unwrap the Optional
+                .collect(Collectors.toList());
+        return jobSeekers;
+    }
+
+    public List<JobPosting> getAllApplicationsByJobSeekerId(String jobSeekerId) {
+        List<JobApplicants> jobApplicants = jobApplicantsRepository.findByJobSeekerId(jobSeekerId);
+        List<JobPosting> appliedJobs = jobApplicants.stream()
+                .map(applicant -> jobPostingRepository.findById(applicant.getJobId()))
+                .filter(Optional::isPresent) // Filter to only include present Optionals
+                .map(Optional::get) // Unwrap the Optional
+                .collect(Collectors.toList());
+        return appliedJobs;
     }
 }

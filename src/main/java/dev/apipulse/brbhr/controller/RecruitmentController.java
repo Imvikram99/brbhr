@@ -57,6 +57,11 @@ public class RecruitmentController {
         List<RecruitmentStage> recruitmentStages = recruitmentService.getStagesForJobPosting(jobPostingId);
         return ResponseEntity.ok(recruitmentStages);
     }
+    @GetMapping("/job-postings/{jobPostingId}/applications")
+    public ResponseEntity<List<JobSeeker>> getApplications(@AuthenticationPrincipal User userDetails,@PathVariable String jobPostingId) {
+        List<JobSeeker> jobSeekers = recruitmentService.getAllApplicationsByJobId(jobPostingId);
+        return ResponseEntity.ok(jobSeekers);
+    }
 
     @DeleteMapping("/job-postings/{jobPostingId}/stages/{stageId}")
     public ResponseEntity<?> deleteStageFromJobPosting(@AuthenticationPrincipal User userDetails,@PathVariable String jobPostingId, @PathVariable String stageId) {

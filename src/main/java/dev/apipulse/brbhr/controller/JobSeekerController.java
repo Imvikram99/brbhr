@@ -9,13 +9,16 @@ import dev.apipulse.brbhr.service.JobSeekerService;
 import dev.apipulse.brbhr.service.RecruitmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/jobseekers")
@@ -55,18 +58,35 @@ public class JobSeekerController {
     }
 
     @PostMapping("/apply/{jobId}")
-    public ResponseEntity<JobApplicants> applyForJob(@AuthenticationPrincipal User userDetails, @PathVariable String jobId) {
-        JobSeeker jobSeeker = jobSeekerService.getJobSeekerProfile(userDetails.getUsername());
+    public ResponseEntity<?> applyForJob(@AuthenticationPrincipal User userDetails, @PathVariable String jobId) {
         JobApplicants jobApplicants = new JobApplicants();
-        jobApplicants.setJobSeeker(jobSeeker);
-        jobApplicants.setJobId(jobId);
-        JobApplicants submittedApplication = recruitmentService.apply(jobApplicants);
-        return ResponseEntity.ok(submittedApplication);
+        try {
+            JobSeeker jobSeeker = jobSeekerService.getJobSeekerProfile(userDetails.getUsername());
+            jobApplicants.setJobSeekerId(jobSeeker.getId());
+            jobApplicants.setJobId(jobId);
+            JobApplicants submittedApplication = recruitmentService.apply(jobApplicants);
+            return ResponseEntity.ok(submittedApplication);
+        } catch (NoSuchElementException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Job seeker profile not found for user: " + userDetails.getUsername());
+        } catch (DuplicateKeyException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("You have already applied for this job.");
+        }
     }
 
     @GetMapping("/all-jobs")
     public ResponseEntity<List<JobPosting>> getAllHiredCandidates() {
         List<JobPosting> openJobPostings = recruitmentService.getAllJobOpenPostings();
         return ResponseEntity.ok(openJobPostings);
+    }
+
+    @GetMapping("/my-applied-jobs")
+    public ResponseEntity<List<JobPosting>> getMyAppliedJobs(@AuthenticationPrincipal User userDetails) {
+        try {
+            JobSeeker jobSeeker = jobSeekerService.getJobSeekerProfile(userDetails.getUsername());
+            List<JobPosting> openJobPostings = recruitmentService.getAllApplicationsByJobSeekerId(jobSeeker.getId());
+            return ResponseEntity.ok(openJobPostings);
+        } catch (NoSuchElementException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Job seeker profile not found for user: " + userDetails.getUsername());
+        }
     }
 }

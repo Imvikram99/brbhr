@@ -71,7 +71,7 @@ public class ChatController {
         //boolean d = isAfter10PM("8/2/2024, 1:04:24 pm");
        // System.out.println(d);
     }
-    @GetMapping("ping")
+    @GetMapping("/ping")
     public Boolean ping(){
         return true;
     }
