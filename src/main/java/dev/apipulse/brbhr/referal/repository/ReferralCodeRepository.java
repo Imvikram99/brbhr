@@ -5,11 +5,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReferralCodeRepository extends MongoRepository<ReferralCode, String> {
 
     // Find all referral codes associated with a specific user
     List<ReferralCode> findByUserId(String userId);
+    Optional<ReferralCode> findByCode(String code);
 
     // Find all active referral codes for a user
     List<ReferralCode> findByUserIdAndActiveTrue(String userId);

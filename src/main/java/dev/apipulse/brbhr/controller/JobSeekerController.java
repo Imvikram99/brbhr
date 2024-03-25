@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -32,10 +34,28 @@ public class JobSeekerController {
     RecruitmentService recruitmentService;
 
     @PostMapping("/register")
-    public ResponseEntity<JobSeeker> registerJobSeeker(@AuthenticationPrincipal User userDetails,@RequestBody JobSeeker jobSeeker) {
-        jobSeeker.setUserName(userDetails.getUsername());
-        JobSeeker registeredJobSeeker = jobSeekerService.registerJobSeeker(jobSeeker);
-        return ResponseEntity.status(HttpStatus.CREATED).body(registeredJobSeeker);
+    public ResponseEntity<?> registerJobSeeker(@AuthenticationPrincipal User userDetails, @RequestBody JobSeeker jobSeeker) {
+        try {
+            jobSeeker.setUserName(userDetails.getUsername());
+            JobSeeker registeredJobSeeker = jobSeekerService.registerJobSeeker(jobSeeker);
+            return ResponseEntity.status(HttpStatus.CREATED).body(registeredJobSeeker);
+        } catch (DuplicateKeyException e) {
+            String errorMessage = "Registration failed due to a duplicate key error.";
+            if (e.getMessage() != null) {
+                 if (e.getMessage().contains("userName")) {
+                    errorMessage = "Registration failed: Already registered with this username.";
+                }
+            }
+            Map<String, String> response = new HashMap<>();
+            response.put("message", errorMessage);
+            response.put("success", "false");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("success", "false");
+            response.put("message", "An error occurred during registration.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
     @PutMapping("/update-profile")

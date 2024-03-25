@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/recruiters/**").hasAnyAuthority(Role.ROLE_RECUITER.name())
                 .antMatchers("/api/referral-codes/**").authenticated()
                 .antMatchers("/api/payment/**").permitAll()
+                .antMatchers("/api/guest/recruitment/**").permitAll()
                 .antMatchers("/api1/admin/**").hasAuthority(Role.ROLE_ADMIN.name())
                 .antMatchers("/api1/**/hr/**").hasAnyAuthority(Role.ROLE_HR.name(),Role.ROLE_ADMIN.name())
                 .antMatchers("/api1/**").hasAnyAuthority(Role.ROLE_EMPLOYEE.name(),Role.ROLE_HR.name(),Role.ROLE_ADMIN.name())

@@ -24,7 +24,7 @@ public class JobSeeker {
     String lastName;
     @Indexed(unique = true)
     String userName; // Unique identifier for the job seeker
-    @Indexed(unique = true)
+    //@Indexed(unique = true)
     String email; // Contact email for the job seeker
     String phoneNumber; // Contact phone number for the job seeker
     String resumeLink; // Link to the job seeker's resume
@@ -62,6 +62,8 @@ public class JobSeeker {
 
     Integer officialNoticePeriod;
     Boolean isNoticePeriodNegotiable;
+    Boolean isFresher; // Indicates if the job seeker is a fresher (recent graduate)
+    String passOutYear;
 
     LocalDate earliestYouCanJoin;
 

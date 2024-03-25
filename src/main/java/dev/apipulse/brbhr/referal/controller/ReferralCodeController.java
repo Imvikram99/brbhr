@@ -38,7 +38,7 @@ public class ReferralCodeController {
         return ResponseEntity.ok(referralCode.getCode());
     }
 
-    @PostMapping("/generate/flat")
+    @GetMapping("/generate/flat")
     public ResponseEntity<String> generateFlatReferralCode(
             @AuthenticationPrincipal User userDetails) {
 

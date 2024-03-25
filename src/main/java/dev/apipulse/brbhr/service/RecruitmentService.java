@@ -36,6 +36,10 @@ public class RecruitmentService {
         return jobPostingRepository.findByIsOpenTrue();
     }
 
+    public Optional<JobPosting> getJobPostingById(String jobPostingId) {
+        return jobPostingRepository.findById(jobPostingId);
+    }
+
     public JobPosting postJob(JobPosting jobPosting) {
         return jobPostingRepository.save(jobPosting);
     }

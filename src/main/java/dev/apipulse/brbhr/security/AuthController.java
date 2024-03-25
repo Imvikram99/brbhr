@@ -1,5 +1,6 @@
 package dev.apipulse.brbhr.security;
 
+import dev.apipulse.brbhr.referal.service.ReferralCodeService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,14 +26,16 @@ public class AuthController {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ReferralCodeService referralCodeService;
 
     @Autowired
     // Assuming constructor injection is used for other beans, you could add UserRepository and PasswordEncoder here
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder, ReferralCodeService referralCodeService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.referralCodeService = referralCodeService;
     }
 
     @PostMapping("/login")
@@ -106,6 +108,11 @@ public class AuthController {
             response.put("success", true);
             response.put("message", "User registered successfully!");
             log.info("User {} successfully registered.", registrationRequest.getUsername());
+            String referralCode = registrationRequest.getReferralCode();
+            if (referralCode != null && !referralCode.isEmpty()) {
+                referralCodeService.applyReferralBenefits(referralCode, newUser.getUsername());
+            }
+
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("success", false);
